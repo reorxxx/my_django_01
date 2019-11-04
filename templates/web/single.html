@@ -1,0 +1,43 @@
+{% extends "web/base.html" %}
+{% load comments_extras %}
+
+{% block main %}
+                <article class="task task-{{ task.pk }}">
+                    <header class="entry-header">
+                        <h1 class="entry-title">{{task.title}}</h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="#">Django 博客教程</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="{{ task.create_time }}">{{ task.create_time }}</time></a></span>
+{#                            <span class="post-author"><a href="#">追梦人物</a></span>#}
+                            <span class="comments-link"><a href="#">4 评论</a></span>
+                            <span class="views-count"><a href="#">588 阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        {{ task.body | safe}}
+                    </div>
+                </article>
+                <section class="comment-area" id="comment-area">
+                    <hr>
+                    <h3>发表评论</h3>
+                        {% show_comment_form task %}
+                        <div class="comment-list-panel">
+                            {% show_comments task %}
+                        </div>
+                </section>
+{% endblock main %}
+
+{% block toc %}
+    <div class="widget widget-content">
+    {% if task.toc %}
+    <h3 class="widget-title">文章目录</h3>
+      <div class="toc">
+        <ul>
+          {{ task.toc|safe }}
+        </ul>
+      </div>
+    {% endif %}
+    </div>
+
+{% endblock toc %}
